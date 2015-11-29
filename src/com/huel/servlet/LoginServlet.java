@@ -11,7 +11,7 @@ import com.huel.dao.UserDao;
 
 //1.service(ServletRequest,ServletResponse)
 //2.service(HttpServletRequest,HttpServletResponse)
-//3.doGet/doPost             ³ÌÐòÔ±ÊÓÍ¼
+//3.doGet/doPost             ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Í¼
 public class LoginServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
@@ -28,27 +28,27 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session;
 		UserDao ud=new UserDao();
 		if(userName.equals("")){
-			req.setAttribute("ErrorInfo", "ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+			req.setAttribute("ErrorInfo", "No username");
 			req.getRequestDispatcher("/login.jsp").forward(req, resp);
 		}
 		else{
 			if(ud.queryUserByName(userName).equals(userName)){
 				if(!ud.queryByPassword(userName,pwd)){					
-					req.setAttribute("ErrorInfo", "ÓÃ»§ÃÜÂë´íÎó");
+					req.setAttribute("ErrorInfo", "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				    req.getRequestDispatcher("/login.jsp").forward(req, resp);
 			        }
-				else{session = req.getSession();// »ñÈ¡ session¶ÔÏó
+				else{session = req.getSession();// ï¿½ï¿½È¡ sessionï¿½ï¿½ï¿½ï¿½
 			        session.setAttribute("userName", userName);
 			        session.setAttribute("pageIndex", pageIndex);
-			         // ÊµÏÖÌø×ª
-			        req.getRequestDispatcher("/ViewGoods").forward(req, resp);
+			         // Êµï¿½ï¿½ï¿½ï¿½×ª
+			        req.getRequestDispatcher("/index.jsp").forward(req, resp);
 			         // this.getServletContext();//application
 					
 				    }
 				}
 			else
 			{
-				req.setAttribute("ErrorInfo", "ÓÃ»§Ãû²»´æÔÚ");
+				req.setAttribute("ErrorInfo", "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			    req.getRequestDispatcher("/login.jsp").forward(req, resp);
 			    }
 			}

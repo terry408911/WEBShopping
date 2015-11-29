@@ -30,6 +30,16 @@ ddsmoothmenu.init({
 	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
 })
 
+function Treat(id)
+{ 
+   //alert("book id"+id);
+   var url="/Shopping/BuyServlet?";
+   url=url+"id="+id;
+   url=url+"&num="+document.getElementById(id+"num").value;
+   window.location.href=url;
+   //alert("url:"+url);
+}
+
 </script>
 
 </head>
@@ -163,15 +173,33 @@ ddsmoothmenu.init({
         	
     
     
-    <%
-//Collection<Goods> goods=(Collection<Goods>)request.getAttribute("goods");
-LinkedList<Goods> list=(LinkedList<Goods>)request.getAttribute("viewGoods");
-int pageCount=(Integer)request.getAttribute("pagesCount");
-int pageIndex=(Integer)request.getAttribute("pageIndex");
-%>
+    		<%
+				//Collection<Goods> goods=(Collection<Goods>)request.getAttribute("goods");
+				LinkedList<Goods> list=(LinkedList<Goods>)request.getAttribute("viewGoods");
+				int pageCount=(Integer)request.getAttribute("pagesCount");
+				int pageIndex=(Integer)request.getAttribute("pageIndex");
+				
+				
+			%>
         	
-        	
-        	
+        	<%
+        		if(list!=null){
+  			 		String url;
+  					for(int i=0;i<list.size();i++){
+  						url = "/Shopping/BuyServlet?id=" + list.get(i).getId();
+  			%>
+  			<div class="product_box">
+  			<h3><% out.print(list.get(i).getName()); %></h3>
+  			<a href=""><img src="<%=url%>"></img></a>
+  			<p><%out.print(list.get(i).getDesp()); %></p>
+  			<p class="product_price"><%=list.get(i).getPrice() %></p>
+  			<a href="javascript:Treat(<%=list.get(i).getId()%>)" class="addtocart"></a>
+  			
+  			<% 
+  					}
+  				}
+        	%>
+        	</div>
         	
             <div class="product_box">
 	            <h3>Ut eu feugiat</h3>
@@ -181,8 +209,19 @@ int pageIndex=(Integer)request.getAttribute("pageIndex");
                 <a href="shoppingcart.html" class="addtocart"></a>
                 <a href="productdetail.html" class="detail"></a>
             </div>        	
-       	
-            
+       		
+       		<div class="product_box">
+       		</div>
+       		
+       		
+       		<div class="product_box">
+       		</div>
+       		<div class="product_box">
+       		</div>
+       		<div class="product_box">
+       		</div>
+       		<div class="product_box">
+            </div>
             
             
             

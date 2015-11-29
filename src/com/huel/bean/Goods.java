@@ -2,11 +2,18 @@ package com.huel.bean;
 
 import java.util.LinkedList;
 
-//±ígoods
+//ï¿½ï¿½goods
 public class Goods {
 	//static LinkedList list = new LinkedList();
 	private int id;
 	private String name;
+	private String desp;
+	public String getDesp() {
+		return desp;
+	}
+	public void setDesp(String desp) {
+		this.desp = desp;
+	}
 	private double price;
 	public int getId() {
 		return id;

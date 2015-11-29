@@ -1,6 +1,5 @@
 package com.huel.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -53,8 +52,8 @@ public class ViewGoodsController extends HttpServlet {
 		g = gd.queryByPageIndex(GoodsDao.SALESCOUNT,
 				GoodsDao.ORDER_DESC, pageIndex);
         request.setAttribute("viewGoods", g);
-        int recordCount=gd.getRecordCount();//×ÜÌõÄ¿Êý       
-        int pagesCount=recordCount%Parameters.pageSize==0?recordCount/Parameters.pageSize:recordCount/Parameters.pageSize+1;   //×ÜÒ³Êý     
+        int recordCount=gd.getRecordCount();//ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½       
+        int pagesCount=recordCount%Parameters.pageSize==0?recordCount/Parameters.pageSize:recordCount/Parameters.pageSize+1;   //ï¿½ï¿½Ò³ï¿½ï¿½     
         request.setAttribute("pagesCount",pagesCount);
         request.setAttribute("pageIndex", pageIndex);
         //LinkedList<Goods> allGoods=GoodsDao.getAllGoods();

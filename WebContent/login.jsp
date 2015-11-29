@@ -21,25 +21,41 @@
 	<h2>购物平台</h2>
 	<div class="login-top">
 		<h1>登录</h1>
-		<form action="login.do" method="post">
-			用户名：<input type="text" name="userName" value="User Id" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Id';}">
-			密码：<input type="password" name="password" value="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}">
+		<form id="form" action="" method="post">
+			用户名：<input type="text" id="username" name="userName" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Id';}">
+			密码：<input type="password" id="password" name="password" value="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}">
 			<center>
+			<!-- return error infomation -->
 	    		<%
 					String info=(String)request.getAttribute("ErrorInfo"); 
 					out.println(info==null?"":info);
 				%>
 	    	</center>
-	    </form>
-	    <div class="forgot">
+	    	<div class="forgot">
 	    	<!-- <a href="#">forgot Password</a> -->
-	    	<center><input type="submit" value="登录" ></center>
-	    </div>
+	    	<center><input type="submit"  value="&nbsp;登录&nbsp;" onclick="checkInput();return false;"/></center>
+	    	</div>
+	    </form>
+	    
 	    
 	</div>
 	<div class="login-bottom">
 		<h3>New User &nbsp;<a href="#">Register</a>&nbsp Here</h3>
 	</div>
 </div>	
+
+<script type="text/javascript">
+			function checkInput(){
+				if(document.getElementById("username").value == ''  ){
+					alert("请输入用户名！");
+					document.getElementById("username").focus();
+				}else if (document.getElementById("password").value == ""){
+					alert("请输入密码！");
+				}else {
+					 document.getElementById("form").action="login.do";				 
+					 document.getElementById("form").submit();
+				}
+			}
+		</script>
 </body>
 </html>  
