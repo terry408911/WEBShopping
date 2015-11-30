@@ -45,8 +45,7 @@ public class ViewGoodsController extends HttpServlet {
 				pageIndex = 1;
 			}
 		}
-		//System.out.println(pageIndex);
-		//System.out.println(pi);
+		
 		GoodsDao gd = new GoodsDao();
 		LinkedList<Goods> g = new LinkedList<Goods>(); 
 		g = gd.queryByPageIndex(GoodsDao.SALESCOUNT,
@@ -58,7 +57,7 @@ public class ViewGoodsController extends HttpServlet {
         request.setAttribute("pageIndex", pageIndex);
         //LinkedList<Goods> allGoods=GoodsDao.getAllGoods();
 		//request.setAttribute("goods",allGoods);
-        request.getRequestDispatcher("/main.jsp").forward(request, response);        
+        request.getRequestDispatcher("/index.jsp").forward(request, response);        
 	}
 
 	/**

@@ -32,7 +32,6 @@
 				%>
 	    	</center>
 	    	<div class="forgot">
-	    	<!-- <a href="#">forgot Password</a> -->
 	    	<center><input type="submit"  value="&nbsp;登录&nbsp;" onclick="checkInput();return false;"/></center>
 	    	</div>
 	    </form>
@@ -44,6 +43,7 @@
 	</div>
 </div>	
 
+<!-- jugement username and password is null or ont -->
 <script type="text/javascript">
 			function checkInput(){
 				if(document.getElementById("username").value == ''  ){

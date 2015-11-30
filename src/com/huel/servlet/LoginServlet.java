@@ -37,11 +37,12 @@ public class LoginServlet extends HttpServlet {
 					req.setAttribute("ErrorInfo", "�û��������");
 				    req.getRequestDispatcher("/login.jsp").forward(req, resp);
 			        }
-				else{session = req.getSession();// ��ȡ session����
+				else{
+					session = req.getSession();// ��ȡ session����
 			        session.setAttribute("userName", userName);
 			        session.setAttribute("pageIndex", pageIndex);
 			         // ʵ����ת
-			        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+			        req.getRequestDispatcher("/ViewGoods").forward(req, resp);
 			         // this.getServletContext();//application
 					
 				    }

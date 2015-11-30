@@ -17,7 +17,7 @@ public class GoodsDao {
 	private static Map<String, Goods> goods = new LinkedHashMap<String, Goods>();
 	//Connection conn;
 
-	//»ñÈ¡×Ü¼ÇÂ¼Êý
+	//ï¿½ï¿½È¡ï¿½Ü¼ï¿½Â¼ï¿½ï¿½
 	public int getRecordCount()
 	{
 	  String sql="select count(id) from goods";
@@ -34,7 +34,7 @@ public class GoodsDao {
 	  }
 	 return 0;	 	  
 	}
-	// ¸ù¾Ýrule×Ö¶Î½øÐÐorder(ÉýÐò»ò½µÐò)²éÑ¯,·µ»ØµÚpageIndexÒ³µÄÊý¾Ý
+	// ï¿½ï¿½ï¿½ï¿½ruleï¿½Ö¶Î½ï¿½ï¿½ï¿½order(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½Ñ¯,ï¿½ï¿½ï¿½Øµï¿½pageIndexÒ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public LinkedList<Goods> queryByPageIndex(String rule, String order, int pageIndex)//
 	{
 		LinkedList<Goods> goodsList = new LinkedList<Goods>();
@@ -51,6 +51,8 @@ public class GoodsDao {
 				//g.set  .....
 				g.setId(rs.getInt("id"));
 				g.setName(rs.getString("name"));
+				g.setDesp(rs.getString(4));
+				g.setPic(rs.getString(5));
 				g.setPrice(rs.getDouble("price"));
 				goodsList.add(g);
 			}

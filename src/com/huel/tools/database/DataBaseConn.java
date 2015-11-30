@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-//Êý¾Ý¿âÁ¬½Ó
+//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
 public class DataBaseConn {
 	public static Connection conn = null;
 	public static String driverClass = "";
@@ -29,7 +29,7 @@ public class DataBaseConn {
 			System.out.println("pwd:" + dbPwd);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("¶ÁÈ¡ÅäÖÃÎÄ¼þÊ§°Ü");
+			System.out.println("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ê§ï¿½ï¿½");
 			return false;
 		}
 		return true;
@@ -41,7 +41,7 @@ public class DataBaseConn {
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Çý¶¯ÀàÃ»ÓÐÕÒµ½£¬¼ÓÔØÊ§°Ü");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			return;
 		}
 
@@ -50,7 +50,7 @@ public class DataBaseConn {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Á¬½ÓÊ§°Ü£¡");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 		}
 	}
 	public void closeConn() {
@@ -64,10 +64,5 @@ public class DataBaseConn {
 			conn = null;
 		}
 	}
-
-	/*public static void main(String[] args) {
-		DataBaseConn dc = new DataBaseConn();
-		dc.openConn();
-	}*/
   
 }

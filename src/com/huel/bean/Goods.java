@@ -8,6 +8,15 @@ public class Goods {
 	private int id;
 	private String name;
 	private String desp;
+	private String pic;
+	
+	
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 	public String getDesp() {
 		return desp;
 	}

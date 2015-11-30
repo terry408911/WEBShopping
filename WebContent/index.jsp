@@ -182,6 +182,7 @@ function Treat(id)
 				
 			%>
         	
+        	
         	<%
         		if(list!=null){
   			 		String url;
@@ -190,47 +191,51 @@ function Treat(id)
   			%>
   			<div class="product_box">
   			<h3><% out.print(list.get(i).getName()); %></h3>
-  			<a href=""><img src="<%=url%>"></img></a>
-  			<p><%out.print(list.get(i).getDesp()); %></p>
+  			<a href="<%=url%>"><img src="<%=list.get(i).getPic()%>"></img></a>
+  			<div style="height:50px"><%out.print(list.get(i).getDesp()); %></div>
   			<p class="product_price"><%=list.get(i).getPrice() %></p>
   			<a href="javascript:Treat(<%=list.get(i).getId()%>)" class="addtocart"></a>
-  			
+  			</div>
   			<% 
   					}
   				}
-        	%>
-        	</div>
-        	
-            <div class="product_box">
-	            <h3>Ut eu feugiat</h3>
-            	<a href="productdetail.html"><img src="images/product/01.jpg" alt="Shoes 1" /></a>
-                <p>Nulla rutrum neque vitae erat condimentum eget malesuada.</p>
-                <p class="product_price">$ 100</p>
-                <a href="shoppingcart.html" class="addtocart"></a>
-                <a href="productdetail.html" class="detail"></a>
-            </div>        	
-       		
-       		<div class="product_box">
-       		</div>
-       		
-       		
-       		<div class="product_box">
-       		</div>
-       		<div class="product_box">
-       		</div>
-       		<div class="product_box">
-       		</div>
-       		<div class="product_box">
+        	%>       	
+       	
+       	
+       	<!-- show page  -->
+       	
+       	<center>
+            <table>	<tr>
+				<span><a href="ViewGoods?pageIndex=1">首页</a></span>
+				<%if(pageIndex==1){		%>
+				<span>上一页</span>
+				<% }else{%>
+				<span><a href="ViewGoods?pageIndex=<%=pageIndex-1 %>">上一页</a></span>
+				<%} %>	
+				<%for(int i=1; i<=pageCount;i++){
+	 				if(i!=pageIndex){%>
+				<td>	
+				<a href="ViewGoods?pageIndex=<%=i %>"><%=i%></a><td>
+				<%}
+				 else{
+		 		%>
+		 		<%=i%>
+	 			<%}
+				} %>	
+				<%if(pageIndex==pageCount){	
+				%>
+				<span>下一页</span>
+				<% }else{
+				%>
+				<span><a href="ViewGoods?pageIndex=<%=pageIndex+1 %>">下一页</a></span>
+				<%} %>
+
+				<span><a href="ViewGoods?pageIndex=<%=pageCount %>">尾页</a></span>
+				</tr>
+				</table>
+				</center>
             </div>
-            
-            
-            
-            
-            
-            
-            
-            
-        </div> 
+ 
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->
     
