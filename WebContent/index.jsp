@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
  <%@ page import="java.util.*,com.huel.bean.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,6 +45,90 @@ function Treat(id)
    //alert("url:"+url);
 }
 
+
+var xmlHttpRequest;
+
+function createXmlHttpRequest()
+{
+	if(window.ActiveXObject)
+ 	{
+  		try
+  		{
+   			xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+  		}
+  		catch(e)
+  		{
+   			xmlHttpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+ 		 }
+  		return xmlHttpRequest;
+ 	}
+ 	else if(window.XMLHttpRequest)
+ 	{
+  		return new XMLHttpRequest();
+ 	}
+}
+
+function auto()
+{
+ 	var query = document.getElementById("query");
+ 	var auto = document.getElementById("auto");
+	var tags = document.getElementById("tags");
+ 	if(event.keyCode == 40)
+ 	{  
+  		if(query.value != "" && auto.style.visibility != "hidden")
+  		{
+   			tags.focus();
+   			tags.selectedIndex = 0;
+   			query.value = tags.options[0].text;
+   			return;
+  		}
+ 	}
+ 	xmlHttpRequest = createXmlHttpRequest();
+ 	xmlHttpRequest.onreadystatechange = backFct;
+ 	var url = "<%=basePath %>database?tag=" + query.value;
+		xmlHttpRequest.open("post", url, true);
+		xmlHttpRequest.send(null);
+	}
+
+	function backFct() {
+		if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+			var rs = xmlHttpRequest.responseText;
+			if (rs != "") {
+				var tagsRs = rs.split(",");
+				var auto = document.getElementById("auto");
+				var tags = document.getElementById("tags");
+				var query = document.getElementById("query");
+				tags.length = 0;
+				tags.size = tagsRs.length;
+				for (var i = 0; i < tagsRs.length; i++) {
+					var option = document.createElement("option");
+					option.setAttribute("text", tagsRs[i]);
+					tags.options[i] = option;
+				}
+				auto.style.width = query.style.width;
+				tags.style.width = query.style.width;
+				auto.style.left = query.offsetLeft - 1;
+				auto.style.top = query.offsetTop + query.offsetHeight + 1;
+				auto.style.visibility = "visible";
+			} else {
+				document.getElementById("auto").style.visibility = "hidden";
+			}
+		}
+	}
+
+	function text() {
+		var query = document.getElementById("query");
+		var auto = document.getElementById("auto");
+		var tags = document.getElementById("tags");
+		if (event.keyCode == 40 || event.keyCode == 38) {
+			if (query.value != "" && auto.style.visibility != "hidden") {
+				query.value = tags.options[tags.selectedIndex].text;
+			}
+		} else if (event.keyCode == 13) {
+			auto.style.visibility = "hidden";
+			query.focus();
+		}
+	}
 </script>
 
 </head>
@@ -89,10 +178,13 @@ function Treat(id)
         </div> <!-- end of ddsmoothmenu -->
         <div id="templatemo_search">
             <form action="#" method="get">
-              <input type="text" value=" " name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
+              <input type="text" value=" " name="keyword" id="query" title="keyword" onkeyup="auto();" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
               <input type="submit" name="Search" value=" " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
             </form>
         </div>
+        <div id="auto" style="border-style: solid; border-width: 1px; visibility: hidden; position: absolute;">
+			<select id="tags" onkeyup="text();" size="0" style="margin: -2px;"></select>
+		</div>
     </div> <!-- END of templatemo_menubar -->
 	<div class="copyrights">Collect from <a href="#"  title="网页模板">网页模板</a></div>
     
@@ -169,68 +261,52 @@ function Treat(id)
                 $('#slider').nivoSlider();
             });
             </script>
-        	<h1>New Products</h1>
-        	
-    
-    
-    		<%
-				//Collection<Goods> goods=(Collection<Goods>)request.getAttribute("goods");
-				LinkedList<Goods> list=(LinkedList<Goods>)request.getAttribute("viewGoods");
-				int pageCount=(Integer)request.getAttribute("pagesCount");
-				int pageIndex=(Integer)request.getAttribute("pageIndex");
-				
-				
-			%>
-        	
-        	
-        	<%
-        		if(list!=null){
-  			 		String url;
-  					for(int i=0;i<list.size();i++){
-  						url = "/Shopping/BuyServlet?id=" + list.get(i).getId();
-  			%>
-  			<div class="product_box">
-  			<h3><% out.print(list.get(i).getName()); %></h3>
-  			<a href="<%=url%>"><img src="<%=list.get(i).getPic()%>"></img></a>
-  			<div style="height:50px"><%out.print(list.get(i).getDesp()); %></div>
-  			<p class="product_price"><%=list.get(i).getPrice() %></p>
-  			<a href="javascript:Treat(<%=list.get(i).getId()%>)" class="addtocart"></a>
-  			</div>
-  			<% 
-  					}
-  				}
-        	%>       	
-       	
+        	<h1>New Products</h1>    	
+       		
+       		<c:forEach var="good" items="${requestScope.viewGoods }">
+       			<div class="product_box">
+  				<h3>${good.name }</h3>
+  				<a href="/Shopping/BuyServlet?id=${good.id }"><img src="${good.pic }"></img></a>
+  				<div style="height:50px">${good.desp }</div>
+  				<p class="product_price">${good.price }</p>
+  				<a href="javascript:Treat(${good.id })" class="addtocart"></a>
+  				</div>
+       		</c:forEach>
        	
        	<!-- show page  -->
        	
        	<center>
             <table>	<tr>
 				<span><a href="ViewGoods?pageIndex=1">首页</a></span>
-				<%if(pageIndex==1){		%>
-				<span>上一页</span>
-				<% }else{%>
-				<span><a href="ViewGoods?pageIndex=<%=pageIndex-1 %>">上一页</a></span>
-				<%} %>	
-				<%for(int i=1; i<=pageCount;i++){
-	 				if(i!=pageIndex){%>
-				<td>	
-				<a href="ViewGoods?pageIndex=<%=i %>"><%=i%></a><td>
-				<%}
-				 else{
-		 		%>
-		 		<%=i%>
-	 			<%}
-				} %>	
-				<%if(pageIndex==pageCount){	
-				%>
-				<span>下一页</span>
-				<% }else{
-				%>
-				<span><a href="ViewGoods?pageIndex=<%=pageIndex+1 %>">下一页</a></span>
-				<%} %>
+				<c:choose>
+					<c:when test="${requestScope.pagesIndex==1 }">
+						<span>上一页</span>
+					</c:when>
+					<c:otherwise>
+						<span><a href="ViewGoods?pageIndex=${requestScope.pagesIndex-1 }">上一页</a></span>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach begin="1" end="${requestScope.pagesCount }" var="i" step="1">
+					<c:choose>
+						<c:when test="${i != requestScope.pageIndex}">
+							<td>	
+							<a href="ViewGoods?pageIndex=${i }">${i }</a><td>
+						</c:when>
+						<c:otherwise>
+							${i }
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${requestScope.pageIndex == requestScope.pageCount }">
+						<span>下一页</span>
+					</c:when>
+					<c:otherwise>
+						<span><a href="ViewGoods?pageIndex=${requestScope.pageIndex+1 }">下一页</a></span>
+					</c:otherwise>
+				</c:choose>
 
-				<span><a href="ViewGoods?pageIndex=<%=pageCount %>">尾页</a></span>
+				<span><a href="ViewGoods?pageIndex=${requestScope.pageCount }">尾页</a></span>
 				</tr>
 				</table>
 				</center>

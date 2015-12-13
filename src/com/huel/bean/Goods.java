@@ -6,6 +6,7 @@ import java.util.LinkedList;
 public class Goods {
 	//static LinkedList list = new LinkedList();
 	private int id;
+	private double price;
 	private String name;
 	private String desp;
 	private String pic;
@@ -23,7 +24,7 @@ public class Goods {
 	public void setDesp(String desp) {
 		this.desp = desp;
 	}
-	private double price;
+	
 	public int getId() {
 		return id;
 	}

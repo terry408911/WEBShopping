@@ -82,5 +82,24 @@ public class GoodsDao {
 			  }
 		return g;
 	}
+	
+	public LinkedList<String> suggestionQuery(){
+		LinkedList<String> suggestion = new LinkedList<>();
+		String sql = "select * from goods limit 10";
+		try {
+			PreparedStatement pStatement = DataBaseConn.conn.prepareStatement(sql);
+			ResultSet rSet = pStatement.executeQuery();
+			while (rSet.next()) {
+				suggestion.add(rSet.getString("name"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return suggestion;
+		
+	}
 
 }
