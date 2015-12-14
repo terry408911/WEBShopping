@@ -41,8 +41,8 @@ function Treat(id)
    var url="/Shopping/BuyServlet?";
    url=url+"id="+id;
    url=url+"&num="+document.getElementById(id+"num").value;
-   url=url+"&img="+document.getElementById("img").href;
-   url=url+"&page="+${requestScope.pagesIndex };
+   url=url+"&img="+document.getElementById("img").getAttribute("src");
+   url=url+"&page="+<%=request.getAttribute("pageIndex")%>;
    window.location.href=url;
    //alert("url:"+url);
 }
@@ -297,7 +297,7 @@ function auto()
 					<c:choose>
 						<c:when test="${i != requestScope.pageIndex}">
 							<td>	
-							<a href="ViewGoods?pageIndex=${i }">${i }</a><td>
+							<a href="ViewGoods?pageIndex=${i }">${i }</a></td>
 						</c:when>
 						<c:otherwise>
 							${i }

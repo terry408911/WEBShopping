@@ -13,6 +13,13 @@ import com.huel.dao.UserDao;
 //2.service(HttpServletRequest,HttpServletResponse)
 //3.doGet/doPost             ����Ա��ͼ
 public class LoginServlet extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	@Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub

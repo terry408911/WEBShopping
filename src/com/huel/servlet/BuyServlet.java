@@ -1,8 +1,6 @@
 package com.huel.servlet;
 
 import java.io.IOException;
-import java.nio.channels.SeekableByteChannel;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,12 +10,18 @@ import javax.servlet.http.HttpSession;
 import com.huel.bean.ShoppingCart;
 @WebServlet("/BuyServlet")
 public class BuyServlet extends HttpServlet{  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			// TODO Auto-generated method stub
 		   String id=req.getParameter("id");
 		   String num1=req.getParameter("num");
 		   String img = req.getParameter("img");
+		   System.out.println(img);
 		   String page = req.getParameter("page");
 		   
 		   int pageIndex = Integer.parseInt(page);
@@ -31,10 +35,10 @@ public class BuyServlet extends HttpServlet{
 		   
 		   if(session.getAttribute("ShoppingCart")!=null){
 			   ShoppingCart cart=(ShoppingCart)session.getAttribute("ShoppingCart");
-			   cart.addGoods(id, num,img);
+			   cart.addGoods(id, num, img);
 		   }else{
 			   ShoppingCart cart=new ShoppingCart();
-			   cart.addGoods(id, num,img);
+			   cart.addGoods(id, num, img);
 			   session.setAttribute("ShoppingCart",cart);
 		   }
 		   
@@ -43,9 +47,9 @@ public class BuyServlet extends HttpServlet{
 			}else {
 				session.setAttribute("totalItem", 1);
 			}
-		   req.getRequestDispatcher("ViewGoods?pageIndex="+pageIndex).forward(req, resp);
+//		   req.getRequestDispatcher("ViewGoods?pageIndex="+pageIndex).forward(req, resp);
 		   
-//		   resp.sendRedirect("index.jsp");
+		   resp.sendRedirect("ViewGoods?pageIndex="+pageIndex);
 		}
 	
   @Override

@@ -132,8 +132,9 @@ ddsmoothmenu.init({
 								ShoppingCartItem caritem=(ShoppingCartItem)iter.next();
 								Goods good=caritem.getGoods();
 								int num=caritem.getNum();
-								double goodsprice=good.getPrice()*num;
-								totalprice+=goodsprice;		
+								String url = caritem.getImg();
+								double goodsPrice=good.getPrice()*num;
+								totalprice+=goodsPrice;		
 		 				%>		
 		 				<%-- <tr><td><%=good.getId() %></td> 
 		 				<td><%=good.getName() %></td>	
@@ -144,23 +145,23 @@ ddsmoothmenu.init({
 		 				
 		 				<tr>
                     		
-                        	<td><img src="<%=good.getPic() %>" alt="image 1" /></td> 
+                        	<td><img src="<%=url %>" alt="image 1" /></td> 
                         	<td><%=good.getDesp() %></td> 
-                            <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
+                            <td align="center"><input type="text" value="<%=num %>" style="width: 20px; text-align: right" /> </td>
                             <td align="right"><%=good.getPrice() %> </td> 
-                            <td align="right">$100 </td>
+                            <td align="right"><%=goodsPrice %> </td>
                             <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
 						</tr>			
-	<% }
-}
-%>
+	<% }%>
+
                     	
                         <tr>
                         	<td colspan="3" align="right"  height="30px">Have you modified your basket? Please click here to <a href="shoppingcart.html"><strong>Update</strong></a>&nbsp;&nbsp;</td>
                             <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
-                            <td align="right" style="background:#ddd; font-weight:bold">$240 </td>
+                            <td align="right" style="background:#ddd; font-weight:bold"><%=totalprice %> </td>
                             <td style="background:#ddd; font-weight:bold"> </td>
 						</tr>
+<% }%>						
 					</table>
                     <div style="float:right; width: 215px; margin-top: 20px;">
                     
