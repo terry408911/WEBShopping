@@ -41,6 +41,8 @@ function Treat(id)
    var url="/Shopping/BuyServlet?";
    url=url+"id="+id;
    url=url+"&num="+document.getElementById(id+"num").value;
+   url=url+"&img="+document.getElementById("img").href;
+   url=url+"&page="+${requestScope.pagesIndex };
    window.location.href=url;
    //alert("url:"+url);
 }
@@ -129,6 +131,10 @@ function auto()
 			query.focus();
 		}
 	}
+	
+	function add(){
+		document.getElementsByName("num").value = document.getElementsByName("num")+1;
+	}
 </script>
 
 </head>
@@ -144,7 +150,7 @@ function auto()
         	<p>
 	        <a href="#">My Account</a> | <a href="#">My Wishlist</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#">Log In</a></p>
             <p>
-            	Shopping Cart: <strong>3 items</strong> ( <a href="shoppingcart.html">Show Cart</a> )
+            	Shopping Cart: <strong>3 items</strong> ( <a href="shoppingcart.jsp">Show Cart</a> )
 			</p>
 		</div>
         <div class="cleaner"></div>
@@ -266,9 +272,10 @@ function auto()
        		<c:forEach var="good" items="${requestScope.viewGoods }">
        			<div class="product_box">
   				<h3>${good.name }</h3>
-  				<a href="/Shopping/BuyServlet?id=${good.id }"><img src="${good.pic }"></img></a>
+  				<a  href="/Shopping/BuyServlet?id=${good.id }"><img id="img" src="${good.pic }"></img></a>
   				<div style="height:50px">${good.desp }</div>
   				<p class="product_price">${good.price }</p>
+  				<input name="num" type="text" id="${good.id }num" class="num" value="1"/>&nbsp;<a href="javascript:add();" style="margin-left: -40px;font-size: 16px;">+</a>
   				<a href="javascript:Treat(${good.id })" class="addtocart"></a>
   				</div>
        		</c:forEach>

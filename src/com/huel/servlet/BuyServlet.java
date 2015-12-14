@@ -1,6 +1,7 @@
 package com.huel.servlet;
 
 import java.io.IOException;
+import java.nio.channels.SeekableByteChannel;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,21 +17,35 @@ public class BuyServlet extends HttpServlet{
 			// TODO Auto-generated method stub
 		   String id=req.getParameter("id");
 		   String num1=req.getParameter("num");
+		   String img = req.getParameter("img");
+		   String page = req.getParameter("page");
+		   
+		   int pageIndex = Integer.parseInt(page);
+		   
 		   if(num1.equals("")){
 			   num1="1";
-		   }	
+		   }
 		   int num=Integer.parseInt(num1);
+		   
 		   HttpSession session=req.getSession(true);
+		   
 		   if(session.getAttribute("ShoppingCart")!=null){
 			   ShoppingCart cart=(ShoppingCart)session.getAttribute("ShoppingCart");
-			   cart.addGoods(id, num);
+			   cart.addGoods(id, num,img);
 		   }else{
 			   ShoppingCart cart=new ShoppingCart();
-			   cart.addGoods(id, num);
+			   cart.addGoods(id, num,img);
 			   session.setAttribute("ShoppingCart",cart);
 		   }
-		   req.getRequestDispatcher("/cart.jsp").forward(req, resp);
-		   //resp.sendRedirect("cart.jsp");
+		   
+		   if (session.getAttribute("totalItem")!=null) {
+				session.setAttribute("totalItem", session.getAttribute("totalItem"));
+			}else {
+				session.setAttribute("totalItem", 1);
+			}
+		   req.getRequestDispatcher("ViewGoods?pageIndex="+pageIndex).forward(req, resp);
+		   
+//		   resp.sendRedirect("index.jsp");
 		}
 	
   @Override

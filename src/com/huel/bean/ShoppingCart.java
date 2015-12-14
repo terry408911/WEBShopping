@@ -5,8 +5,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import com.huel.dao.GoodsDao;
-//¹ºÎï³µ
+//ï¿½ï¿½ï¿½ï³µ
 public class ShoppingCart {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Map map=Collections.synchronizedMap(new HashMap());
 	LinkedList<ShoppingCartItem> shoppingList = new LinkedList<ShoppingCartItem>();
 
@@ -17,16 +18,17 @@ public class ShoppingCart {
 	public void setShoppingList(LinkedList<ShoppingCartItem> shoppingList) {
 		this.shoppingList = shoppingList;
 	}
-    //ÉÌÆ·¼Û¸ñ
+    //ï¿½ï¿½Æ·ï¿½Û¸ï¿½
 	public double getGoodsPrice(String id) {
 		ShoppingCartItem caritem=(ShoppingCartItem)map.get(id);
 		double listprice=caritem.getGoods().getPrice();
 		int num=caritem.getNum();
 		return listprice*num;
 	}
-	//ÉÌÆ·×Ü¼Û
+	//ï¿½ï¿½Æ·ï¿½Ü¼ï¿½
 	public double getTotalPrice(){
 		double totalprice=0.0;
+		@SuppressWarnings("rawtypes")
 		Iterator iter=map.values().iterator();
 		while(iter.hasNext()){
 			ShoppingCartItem caritem = (ShoppingCartItem)iter.next();
@@ -36,33 +38,37 @@ public class ShoppingCart {
 		}
 		return totalprice;
 	}
-	//Ïò¹ºÎï³µÖÐÌí¼ÓÉÌÆ·
-	public void addGoods(String id,int num){
+	//ï¿½ï¿½ï¿½ï³µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+	@SuppressWarnings("unchecked")
+	public void addGoods(String id,int num,String url){
 		boolean is=this.isContain(id);
 		if(is){
 			ShoppingCartItem caritem=(ShoppingCartItem)map.get(id);
 			caritem.add(num);
 		}else{
 			Goods good=GoodsDao.getGoodsById(id);
-			ShoppingCartItem caritem=new ShoppingCartItem(good,num);
+			ShoppingCartItem caritem=new ShoppingCartItem(good,num,url);
 			map.put(id, caritem);
 		}
 	}
 	public boolean isContain(String id){
 		return map.containsKey(id);
 	}
-	 //ÊýÁ¿¸üÐÂ
+	 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void updateNum(String id,int num){
 		ShoppingCartItem caritem=(ShoppingCartItem)map.get(id);
         caritem.setNum(num);	
 	}
 	public void removeGood(String id)
     {
-       map.remove(id);	 //ÒÆ³ý
+       map.remove(id);	 //ï¿½Æ³ï¿½
     }
 	
+	@SuppressWarnings("rawtypes")
 	public Map getMap(){
 		return map;
 	}
+
+	
 
 }

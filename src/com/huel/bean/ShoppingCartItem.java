@@ -1,18 +1,25 @@
 package com.huel.bean;
 
 public class ShoppingCartItem {
-   Goods g; //ÉÌÆ·
-   int num;//¹ºÂòÊıÁ¿
-   public ShoppingCartItem(Goods g,int num){
+   Goods g; //ï¿½ï¿½Æ·
+   int num;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   String img;
+   public String getImg() {
+	return img;
+}
+public void setImg(String img) {
+	this.img = img;
+}
+public ShoppingCartItem(Goods g,int num,String img){
 	   this.g=g;
 	   this.num=num;
-	   
+	   this.img = img;
    }
-//Ò»¸öÒ»¸öÂò²úÆ·Ïî
+//Ò»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½
 public void incrment(){
  	num++;
 }
-//ÔÚÔ­ÓĞµÄ»ù´¡ÉÏÔÙÂòÒ»Ğ©
+//ï¿½ï¿½Ô­ï¿½ĞµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ğ©
 public void add(int n){
  	num+=n;	
 }
